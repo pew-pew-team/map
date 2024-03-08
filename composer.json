@@ -39,7 +39,9 @@
         }
     },
     "scripts": {
-        "test": "phpunit --testdox",
+        "test": ["@test:unit", "@test:functional"],
+        "test:unit": "phpunit --testdox",
+        "test:functional": "phpunit --testdox --testsuite=functional",
         "linter": "@linter:check",
         "linter:check": "psalm --no-cache",
         "linter:fix": "psalm --no-cache --alter",
