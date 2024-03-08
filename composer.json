@@ -1,5 +1,7 @@
 {
     "name": "pew-pew/map",
+    "license": "MIT",
+    "description": "Map loader and entities component",
     "type": "library",
     "require": {
         "php": "^8.3",
