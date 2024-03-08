@@ -24,9 +24,9 @@ final readonly class TileSet implements \Stringable
      */
     public function containsId(int $tileId): bool
     {
-        return $tileId >= 1 && $this->size->containsId(
-            id: \max(0, $tileId - $this->tileIdStartsAt),
-        );
+        return $tileId >= 1
+            && ($id = $tileId - $this->tileIdStartsAt) >= 0
+            && $this->size->containsId($id);
     }
 
     /**
