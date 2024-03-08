@@ -15,8 +15,6 @@
     <a href="https://github.com/pew-pew-team/map/actions"><img src="https://github.com/pew-pew-team/map/workflows/static-analysis/badge.svg"></a>
 </p>
 
----
-
 # Map
 
 This component provides basic DTOs for storing, analyzing and 
