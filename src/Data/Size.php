@@ -16,6 +16,7 @@ final readonly class Size
     ) {}
 
     /**
+     * @api
      * @return int<1, max>
      */
     public function getArea(): int
@@ -24,6 +25,7 @@ final readonly class Size
     }
 
     /**
+     * @api
      * @param int<0, max> $id
      */
     public function containsId(int $id): bool
@@ -32,6 +34,7 @@ final readonly class Size
     }
 
     /**
+     * @api
      * @param int<0, max> $id
      */
     public function getX(int $id): int
@@ -40,6 +43,7 @@ final readonly class Size
     }
 
     /**
+     * @api
      * @param int<0, max> $id
      */
     public function getY(int $id): int

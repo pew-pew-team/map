@@ -16,6 +16,7 @@ final readonly class Layer
     ) {}
 
     /**
+     * @api
      * @param int<0, max> $indexId
      */
     public function containsId(int $indexId): bool
@@ -24,18 +25,20 @@ final readonly class Layer
     }
 
     /**
+     * @api
      * @param int<0, max> $indexId
      */
     public function getX(int $indexId): int
     {
-        return $this->size->getX($indexId - $this->position->x);
+        return $this->size->getX(\max(0, $indexId - $this->position->x));
     }
 
     /**
+     * @api
      * @param int<0, max> $indexId
      */
     public function getY(int $indexId): int
     {
-        return $this->size->getY($indexId - $this->position->y);
+        return $this->size->getY(\max(0, $indexId - $this->position->y));
     }
 }

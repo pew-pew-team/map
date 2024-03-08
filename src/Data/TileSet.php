@@ -19,30 +19,34 @@ final readonly class TileSet
     ) {}
 
     /**
+     * @api
      * @param int<1, max> $tileId
      */
     public function containsId(int $tileId): bool
     {
-        return $this->size->containsId($tileId - $this->tileIdStartsAt);
+        return $this->size->containsId(\max(0, $tileId - $this->tileIdStartsAt));
     }
 
     /**
+     * @api
      * @param int<1, max> $tileId
      */
     public function getX(int $tileId): int
     {
-        return $this->size->getX($tileId - $this->tileIdStartsAt);
+        return $this->size->getX(\max(0, $tileId - $this->tileIdStartsAt));
     }
 
     /**
+     * @api
      * @param int<1, max> $tileId
      */
     public function getY(int $tileId): int
     {
-        return $this->size->getY($tileId - $this->tileIdStartsAt);
+        return $this->size->getY(\max(0, $tileId - $this->tileIdStartsAt));
     }
 
     /**
+     * @api
      * @psalm-taint-sink file $pathname
      *
      * @param non-empty-string $pathname

@@ -14,7 +14,7 @@ final class LoaderFactory implements LoaderInterface
     public readonly AssetLoader $assets;
 
     /**
-     * @param LoaderInterface $loaders
+     * @param list<LoaderInterface> $loaders
      * @param iterable<array-key, non-empty-string> $directories
      */
     public function __construct(
@@ -25,6 +25,9 @@ final class LoaderFactory implements LoaderInterface
         $this->assets = new AssetLoader($directories);
     }
 
+    /**
+     * @api
+     */
     public function add(LoaderInterface $loader): void
     {
         $this->loaders[] = $loader;
