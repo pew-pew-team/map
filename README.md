@@ -216,3 +216,62 @@ $new = $previous->withPathname(
 echo $previous->pathname; // string(".../tiles-1.png")
 echo $new->pathname; // string(".../tiles-2.png")
 ```
+
+## Examples
+
+Example map
+
+```php
+use PewPew\Map\Data\Size;
+use PewPew\Map\Data\TileSet;
+use PewPew\Map\Data\TilesLayer;
+use PewPew\Map\Map;
+
+$map = new Map(
+    layers: [
+        new TilesLayer(
+            tiles: [
+                0, 1, 2,
+                0, 1, 1,
+                1, 2, 1,
+            ],
+            size: new Size(3, 3),
+        ),
+    ],
+    tileSets: [
+        new TileSet(
+            pathname: __DIR__ . '/tiles.png',
+            size: new Size(2, 2),
+        ),
+    ],
+    size: new Size(3, 3),
+);
+
+echo \json_encode($map);
+```
+
+Expected output:
+
+```json
+{
+    "layers": [
+        {
+            "size": { "width": 3, "height": 3 },
+            "position": { "x": 0, "y": 0 },
+            "tiles": [
+                0, 1, 2,
+                0, 1, 1,
+                1, 2, 1
+            ]
+        }
+    ],
+    "tileSets": [
+        {
+            "pathname": "..path/to/map/tiles.png",
+            "tileIdStartsAt": 1,
+            "size": { "width": 2, "height": 2 }
+        }
+    ],
+    "size": { "width": 3, "height": 3 }
+}
+```
