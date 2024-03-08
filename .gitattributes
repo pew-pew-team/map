@@ -12,5 +12,4 @@ psalm.xml export-ignore
 rector.php export-ignore
 
 /.github export-ignore
-/example export-ignore
 /tests export-ignore
