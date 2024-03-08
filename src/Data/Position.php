@@ -20,6 +20,7 @@ readonly class Position implements \Stringable
      */
     public function __toString(): string
     {
+        /** @var non-empty-string */
         return \vsprintf('object<Position> { x: %d, y: %d }', [
             $this->x,
             $this->y,

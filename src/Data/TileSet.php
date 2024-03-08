@@ -32,6 +32,7 @@ final readonly class TileSet implements \Stringable
     /**
      * @api
      * @param int<1, max> $tileId
+     * @return int<0, max>
      */
     public function getX(int $tileId): int
     {
@@ -41,6 +42,7 @@ final readonly class TileSet implements \Stringable
     /**
      * @api
      * @param int<1, max> $tileId
+     * @return int<0, max>
      */
     public function getY(int $tileId): int
     {
@@ -70,8 +72,12 @@ final readonly class TileSet implements \Stringable
         return new self($pathname, $this->tileIdStartsAt, $this->size);
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function __toString(): string
     {
+        /** @var non-empty-string */
         return \vsprintf(<<<'TEMPLATE'
             object<TileSet = %s> {
                 id: %d,

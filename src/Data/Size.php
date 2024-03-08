@@ -36,18 +36,22 @@ readonly class Size implements \Stringable
     /**
      * @api
      * @param int<0, max> $id
+     * @return int<0, max>
      */
     public function getX(int $id): int
     {
+        /** @var int<0, max> */
         return $id % $this->width;
     }
 
     /**
      * @api
      * @param int<0, max> $id
+     * @return int<0, max>
      */
     public function getY(int $id): int
     {
+        /** @var int<0, max> */
         return (int) ($id / $this->width);
     }
 
@@ -68,6 +72,7 @@ readonly class Size implements \Stringable
      */
     public function __toString(): string
     {
+        /** @var non-empty-string */
         return \vsprintf('object<Size> { width: %d, height: %d }', [
             $this->width,
             $this->height,

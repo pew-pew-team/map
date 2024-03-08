@@ -23,6 +23,7 @@ readonly class Layer implements \Stringable
     /**
      * @api
      * @param int<0, max> $indexId
+     * @return int<0, max>
      */
     public function getX(int $indexId): int
     {
@@ -32,6 +33,7 @@ readonly class Layer implements \Stringable
     /**
      * @api
      * @param int<0, max> $indexId
+     * @return int<0, max>
      */
     public function getY(int $indexId): int
     {
@@ -50,8 +52,12 @@ readonly class Layer implements \Stringable
         );
     }
 
+    /**
+     * @return non-empty-string
+     */
     public function __toString(): string
     {
+        /** @var non-empty-string */
         return \vsprintf(<<<'TEMPLATE'
             object<%s> {
                 size: %s,
