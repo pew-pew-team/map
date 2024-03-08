@@ -2,8 +2,6 @@
     <a href="https://github.com/pew-pew-team"><img src="https://avatars.githubusercontent.com/u/161106276?s=128&v=4"/></a>
 </p>
 
----
-
 <p align="center">
     <a href="https://packagist.org/packages/pew-pew/map"><img src="https://poser.pugx.org/pew-pew/map/require/php?style=for-the-badge" alt="PHP 8.3+"></a>
     <a href="https://packagist.org/packages/pew-pew/map"><img src="https://poser.pugx.org/pew-pew/map/version?style=for-the-badge" alt="Latest Stable Version"></a>
@@ -17,9 +15,9 @@
     <a href="https://github.com/pew-pew-team/map/actions"><img src="https://github.com/pew-pew-team/map/workflows/static-analysis/badge.svg"></a>
 </p>
 
-# Map
-
 ---
+
+# Map
 
 This component provides basic DTOs for storing, analyzing and 
 transmitting game maps data, as well as loaders for 
