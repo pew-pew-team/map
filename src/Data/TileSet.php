@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PewPew\Map\Data;
 
-final readonly class TileSet
+final readonly class TileSet implements \Stringable
 {
     /**
      * @psalm-taint-sink file $pathname
@@ -14,7 +14,7 @@ final readonly class TileSet
      */
     public function __construct(
         public string $pathname,
-        public int $tileIdStartsAt,
+        public int $tileIdStartsAt = 1,
         public Size $size = new Size(),
     ) {}
 
@@ -24,7 +24,9 @@ final readonly class TileSet
      */
     public function containsId(int $tileId): bool
     {
-        return $this->size->containsId(\max(0, $tileId - $this->tileIdStartsAt));
+        return $tileId >= 1 && $this->size->containsId(
+            id: \max(0, $tileId - $this->tileIdStartsAt),
+        );
     }
 
     /**
@@ -47,6 +49,18 @@ final readonly class TileSet
 
     /**
      * @api
+     * @param int<1, max> $tileId
+     */
+    public function getPosition(int $tileId): Position
+    {
+        return new Position(
+            x: $this->getX($tileId),
+            y: $this->getY($tileId),
+        );
+    }
+
+    /**
+     * @api
      * @psalm-taint-sink file $pathname
      *
      * @param non-empty-string $pathname
@@ -54,5 +68,19 @@ final readonly class TileSet
     public function withPathname(string $pathname): self
     {
         return new self($pathname, $this->tileIdStartsAt, $this->size);
+    }
+
+    public function __toString(): string
+    {
+        return \vsprintf(<<<'TEMPLATE'
+            object<TileSet = %s> {
+                id: %d,
+                size: %s,
+            }
+            TEMPLATE, [
+                \var_export($this->pathname, true),
+                $this->tileIdStartsAt,
+                (string) $this->size,
+            ]);
     }
 }

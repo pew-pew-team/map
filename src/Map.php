@@ -8,7 +8,7 @@ use PewPew\Map\Data\Layer;
 use PewPew\Map\Data\Size;
 use PewPew\Map\Data\TileSet;
 
-final readonly class Map
+readonly class Map
 {
     /**
      * @param list<Layer> $layers

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PewPew\Map\Data;
 
-final readonly class Size
+readonly class Size implements \Stringable
 {
     /**
      * @param int<1, max> $width
@@ -49,5 +49,28 @@ final readonly class Size
     public function getY(int $id): int
     {
         return (int) ($id / $this->width);
+    }
+
+    /**
+     * @api
+     * @param int<0, max> $id
+     */
+    public function getPosition(int $id): Position
+    {
+        return new Position(
+            x: $this->getX($id),
+            y: $this->getY($id),
+        );
+    }
+
+    /**
+     * @return non-empty-string
+     */
+    public function __toString(): string
+    {
+        return \vsprintf('object<Size> { width: %d, height: %d }', [
+            $this->width,
+            $this->height,
+        ]);
     }
 }

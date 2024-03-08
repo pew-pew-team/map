@@ -4,13 +4,9 @@ declare(strict_types=1);
 
 namespace PewPew\Map\Data;
 
-final readonly class Layer
+readonly class Layer implements \Stringable
 {
-    /**
-     * @param list<int<0, max>> $tiles
-     */
     public function __construct(
-        public array $tiles = [],
         public Size $size = new Size(),
         public Position $position = new Position(),
     ) {}
@@ -40,5 +36,32 @@ final readonly class Layer
     public function getY(int $indexId): int
     {
         return $this->size->getY(\max(0, $indexId - $this->position->y));
+    }
+
+    /**
+     * @api
+     * @param int<0, max> $indexId
+     */
+    public function getPosition(int $indexId): Position
+    {
+        return new Position(
+            x: $this->getX($indexId),
+            y: $this->getY($indexId),
+        );
+    }
+
+    public function __toString(): string
+    {
+        return \vsprintf(<<<'TEMPLATE'
+            object<%s> {
+                size: %s,
+                position: %s
+            }
+            TEMPLATE, [
+                (new \ReflectionClass(static::class))
+                    ->getShortName(),
+                (string) $this->size,
+                (string) $this->position,
+            ]);
     }
 }
