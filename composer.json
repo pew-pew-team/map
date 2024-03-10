@@ -5,6 +5,8 @@
     "type": "library",
     "require": {
         "php": "^8.3",
+        "ext-dom": "*",
+        "ext-json": "*",
         "phplrt/source": "^3.6",
         "phplrt/source-contracts": "^3.6"
     },
@@ -16,6 +18,7 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.49",
         "phpunit/phpunit": "^10.5",
+        "symfony/var-dumper": "^5.4|^6.0|^7.0",
         "vimeo/psalm": "^5.21"
     },
     "autoload-dev": {

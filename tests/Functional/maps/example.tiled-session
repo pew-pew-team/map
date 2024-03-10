@@ -1,0 +1,242 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "basic.js",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "": {
+            "scaleInDock": 1
+        },
+        "base64-tileset-zlib.tmj": {
+            "scale": 18.139062499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.0027564820398,
+                "y": 32.00275648203981
+            }
+        },
+        "base64-tileset-zlib.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "base64-tileset-zstd.tmj": {
+            "scale": 18.139062499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.0027564820398,
+                "y": 32.00275648203981
+            }
+        },
+        "base64-tileset-zstd.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "base64-tileset.tmj": {
+            "scale": 18.139062499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.0027564820398,
+                "y": 32.00275648203981
+            }
+        },
+        "base64-tileset.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "basic.js": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 155.375,
+                "y": 108.125
+            }
+        },
+        "basic.js#included": {
+            "scaleInDock": 1
+        },
+        "bottom-left.tmj": {
+            "scale": 18.139062499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.0027564820398,
+                "y": 32.00275648203981
+            }
+        },
+        "bottom-left.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "example.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "external-tiles-tsx.tmj": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 168.5,
+                "y": 77.83333333333334
+            }
+        },
+        "external-tileset.tmj": {
+            "scale": 18.139062499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.0027564820398,
+                "y": 32.00275648203981
+            }
+        },
+        "external-tileset.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "hex.tmj": {
+            "scale": 15.9125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 40,
+                "y": 28.059701492537314
+            }
+        },
+        "hex.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "inf.tmj": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 49.625,
+                "y": 18.875
+            }
+        },
+        "inf.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "isometric-alt.tmj": {
+            "scale": 15.9125,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 40,
+                "y": 24.037706205813045
+            }
+        },
+        "isometric-alt.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "isometric.tmj": {
+            "scale": 18.139062499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.0027564820398,
+                "y": 32.00275648203981
+            }
+        },
+        "isometric.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "left-top.tmj": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 97.875,
+                "y": 55.625
+            }
+        },
+        "left-top.tmj#tiles": {
+            "scaleInDock": 1
+        },
+        "object-layers.tmj": {
+            "scale": 9.069531249999999,
+            "selectedLayer": 2,
+            "viewCenter": {
+                "x": 64.0055129640796,
+                "y": 64.00551296407961
+            }
+        },
+        "object-layers.tmj#tiles": {
+            "scaleInDock": 1
+        },
+        "right-top.tmj": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 38.875,
+                "y": 61.625
+            }
+        },
+        "right-top.tmj#tiles": {
+            "scaleInDock": 1
+        },
+        "simple.js": {
+            "scale": 18.139062499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 28.805237315875615,
+                "y": 32.00275648203981
+            }
+        },
+        "simple.js#basic": {
+            "scaleInDock": 1
+        },
+        "tiles.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "top-left.tmj": {
+            "scale": 4,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 144.875,
+                "y": 114.125
+            }
+        },
+        "top-left.tmj#basic": {
+            "scaleInDock": 1
+        },
+        "top-left.tmj#included": {
+            "scaleInDock": 1
+        },
+        "top-right.tmj": {
+            "scale": 18.139062499999998,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 32.0027564820398,
+                "y": 32.00275648203981
+            }
+        },
+        "top-right.tmj#basic": {
+            "scaleInDock": 1
+        }
+    },
+    "last.imagePath": "//wsl.localhost/Ubuntu-22.04/home/serafim/local/pew-pew-server/libs/map/tests/Functional/maps",
+    "map.fixedSize": true,
+    "map.height": 4,
+    "map.lastUsedFormat": "json",
+    "map.layerDataFormat": null,
+    "map.orientation": null,
+    "map.renderOrder": null,
+    "map.width": 4,
+    "openFiles": [
+        "basic.js"
+    ],
+    "project": "example.tiled-project",
+    "recentFiles": [
+        "object-layers.tmj",
+        "basic.js",
+        "tiles.tsx",
+        "external-tiles-tsx.tmj",
+        "tiles.tsj",
+        "left-top.tmj",
+        "right-top.tmj",
+        "top-left.tmj",
+        "example.tsx",
+        "inf.tmj",
+        "hex.tmj",
+        "isometric-alt.tmj"
+    ],
+    "tileset.embedInMap": false,
+    "tileset.lastUsedFormat": "tsx"
+}

@@ -1,0 +1,136 @@
+{
+    "compressionlevel": -1,
+    "height": 4,
+    "infinite": false,
+    "layers": [
+        {
+            "data": [
+                1,
+                0,
+                2,
+                0,
+                0,
+                3,
+                0,
+                4,
+                2,
+                0,
+                1,
+                0,
+                0,
+                4,
+                0,
+                3
+            ],
+            "height": 4,
+            "id": 1,
+            "name": "tiles",
+            "opacity": 1,
+            "type": "tilelayer",
+            "visible": true,
+            "width": 4,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "draworder": "topdown",
+            "id": 2,
+            "name": "objects",
+            "objects": [
+                {
+                    "height": 89.7510552157809,
+                    "id": 1,
+                    "name": "",
+                    "rotation": 0,
+                    "type": "",
+                    "visible": true,
+                    "width": 85.3406839521061,
+                    "x": 22.0518563183737,
+                    "y": 16.6491515203721
+                }
+            ],
+            "opacity": 1,
+            "type": "objectgroup",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 3,
+            "image": "example.png",
+            "name": "images",
+            "offsetx": 15.877336549229,
+            "offsety": 46.1986389869929,
+            "opacity": 1,
+            "type": "imagelayer",
+            "visible": true,
+            "x": 0,
+            "y": 0
+        },
+        {
+            "id": 4,
+            "layers": [
+                {
+                    "data": [
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        3,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0,
+                        0
+                    ],
+                    "height": 4,
+                    "id": 5,
+                    "name": "sub-tiles",
+                    "opacity": 1,
+                    "type": "tilelayer",
+                    "visible": true,
+                    "width": 4,
+                    "x": 0,
+                    "y": 0
+                }
+            ],
+            "name": "group",
+            "opacity": 1,
+            "type": "group",
+            "visible": false,
+            "x": 0,
+            "y": 0
+        }
+    ],
+    "nextlayerid": 6,
+    "nextobjectid": 2,
+    "orientation": "orthogonal",
+    "renderorder": "left-up",
+    "tiledversion": "1.10.2",
+    "tileheight": 32,
+    "tilesets": [
+        {
+            "columns": 2,
+            "firstgid": 1,
+            "image": "example.png",
+            "imageheight": 64,
+            "imagewidth": 64,
+            "margin": 0,
+            "name": "tiles",
+            "spacing": 0,
+            "tilecount": 4,
+            "tileheight": 32,
+            "tilewidth": 32
+        }
+    ],
+    "tilewidth": 32,
+    "type": "map",
+    "version": "1.10",
+    "width": 4
+}
