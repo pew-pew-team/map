@@ -49,7 +49,8 @@ readonly class Map implements \Stringable
             $tileSets[] = (string) $tileSet;
         }
 
-        return \sprintf(<<<'TPL'
+        return \sprintf(
+            <<<'TPL'
             Map {
                 layers(%d): [
                     %s,

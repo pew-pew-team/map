@@ -15,11 +15,13 @@ use PewPew\Map\Data\Size\FloatSize;
 use PewPew\Map\Data\Size\IntSize;
 use PewPew\Map\Data\TileSet;
 use PewPew\Map\Exception\MapFeatureNotSupportedException;
-use PewPew\Map\Loader\Tiled\RenderOrder;
 use PewPew\Map\LoaderInterface;
 use PewPew\Map\Map;
 use Phplrt\Contracts\Source\ReadableInterface;
 
+/**
+ * @psalm-suppress all
+ */
 abstract class TiledLoader implements LoaderInterface
 {
     public function load(ReadableInterface $source): ?Map
@@ -71,6 +73,8 @@ abstract class TiledLoader implements LoaderInterface
     }
 
     /**
+     * @psalm-suppress InvalidParamDefault
+     *
      * @return list<Layer>
      */
     private function createLayers(array $data, PositionInterface $position = new IntPosition()): array

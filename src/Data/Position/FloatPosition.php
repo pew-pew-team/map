@@ -34,11 +34,12 @@ readonly class FloatPosition implements PositionInterface
         );
     }
 
-    public function toSize(): SizeInterface
+    public function toSize(): FloatSize
     {
+        /** @var FloatSize & SizeInterface<float> */
         return new FloatSize(
-            width: (float) \abs($this->x),
-            height: (float) \abs($this->y),
+            width: \abs($this->x),
+            height: \abs($this->y),
         );
     }
 

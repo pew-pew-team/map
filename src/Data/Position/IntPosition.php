@@ -34,11 +34,12 @@ readonly class IntPosition implements PositionInterface
         );
     }
 
-    public function toSize(): SizeInterface
+    public function toSize(): IntSize
     {
+        /** @var IntSize & SizeInterface<int> */
         return new IntSize(
-            width: (int) \abs($this->x),
-            height: (int) \abs($this->y),
+            width: \abs($this->x),
+            height: \abs($this->y),
         );
     }
 

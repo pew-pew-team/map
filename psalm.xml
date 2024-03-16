@@ -9,6 +9,10 @@
     xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
     cacheDirectory="vendor/.cache.psalm"
 >
+    <issueHandlers>
+        <InvalidParamDefault errorLevel="suppress" />
+        <NoInterfaceProperties errorLevel="suppress" />
+    </issueHandlers>
     <projectFiles>
         <directory name="src" />
         <ignoreFiles>

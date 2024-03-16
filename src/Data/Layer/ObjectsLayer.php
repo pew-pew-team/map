@@ -5,12 +5,16 @@ declare(strict_types=1);
 namespace PewPew\Map\Data\Layer;
 
 use PewPew\Map\Data\Layer;
+use PewPew\Map\Data\Layer\ObjectsLayer\BoxObject;
 use PewPew\Map\Data\Position\IntPosition;
 use PewPew\Map\Data\PositionInterface;
 use PewPew\Map\Internal\Formatter;
 
 readonly class ObjectsLayer extends Layer
 {
+    /**
+     * @param list<BoxObject> $objects
+     */
     public function __construct(
         public array $objects = [],
         PositionInterface $position = new IntPosition(),

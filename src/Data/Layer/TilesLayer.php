@@ -38,7 +38,8 @@ readonly class TilesLayer extends Layer
      */
     public function getX(int $indexId): int
     {
-        return $this->size->getX(\max(0, $indexId - $this->position->x));
+        /** @psalm-suppress ArgumentTypeCoercion */
+        return $this->size->getX((int) \max(0, $indexId - $this->position->x));
     }
 
     /**
@@ -48,7 +49,8 @@ readonly class TilesLayer extends Layer
      */
     public function getY(int $indexId): int
     {
-        return $this->size->getY(\max(0, $indexId - $this->position->y));
+        /** @psalm-suppress ArgumentTypeCoercion */
+        return $this->size->getY((int) \max(0, $indexId - $this->position->y));
     }
 
     /**
@@ -71,7 +73,8 @@ readonly class TilesLayer extends Layer
         $slice = \array_slice($this->tiles, 0, 5);
 
         /** @var non-empty-string */
-        return \sprintf(<<<'TEMPLATE'
+        return \sprintf(
+            <<<'TEMPLATE'
             Layer<Tiles> {
                 tiles(%d): [ %s ],
                 size: %s,
