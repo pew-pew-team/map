@@ -5,10 +5,15 @@ declare(strict_types=1);
 namespace PewPew\Map\Loader;
 
 use PewPew\Map\Data\Layer;
-use PewPew\Map\Data\Position;
-use PewPew\Map\Data\Size;
+use PewPew\Map\Data\Layer\ObjectsLayer;
+use PewPew\Map\Data\Layer\ObjectsLayer\BoxObject;
+use PewPew\Map\Data\Layer\TilesLayer;
+use PewPew\Map\Data\Position\FloatPosition;
+use PewPew\Map\Data\Position\IntPosition;
+use PewPew\Map\Data\PositionInterface;
+use PewPew\Map\Data\Size\FloatSize;
+use PewPew\Map\Data\Size\IntSize;
 use PewPew\Map\Data\TileSet;
-use PewPew\Map\Data\TilesLayer;
 use PewPew\Map\Exception\MapFeatureNotSupportedException;
 use PewPew\Map\Loader\Tiled\RenderOrder;
 use PewPew\Map\LoaderInterface;
@@ -41,19 +46,6 @@ abstract class TiledLoader implements LoaderInterface
             && $data['type'] === 'map';
     }
 
-    private function getRenderOrder(array $data): RenderOrder
-    {
-        if (!isset($data['renderorder'])) {
-            return RenderOrder::DEFAULT;
-        }
-
-        return RenderOrder::tryFrom($data['renderorder'])
-            ?? throw new MapFeatureNotSupportedException(\sprintf(
-                'Unsupported render order %s',
-                \var_export($data['renderorder'], true),
-            ));
-    }
-
     private function convert(array $data): ?Map
     {
         // Check compression level
@@ -72,47 +64,189 @@ abstract class TiledLoader implements LoaderInterface
         }
 
         return new Map(
-            layers: $this->loadLayersList($data),
-            tileSets: $this->loadTileSetsList($data),
-            size: new Size(
-                width: (int) ($data['width'] ?? 1),
-                height: (int) ($data['height'] ?? 1),
-            ),
+            layers: $this->createLayers($data),
+            tileSets: $this->createTileSets($data),
+            size: $this->createIntSize($data),
         );
     }
 
     /**
      * @return list<Layer>
      */
-    private function loadLayersList(array $data): array
+    private function createLayers(array $data, PositionInterface $position = new IntPosition()): array
     {
-        $layers = $this->loadLayers($data);
+        $result = [];
 
-        return \iterator_to_array($layers, false);
+        foreach ($data['layers'] ?? [] as $layer) {
+            $instances = match ($layer['type']) {
+                'tilelayer' => [$this->createTilesLayers($layer, $position)],
+                'objectgroup' => [$this->createObjectLayers($layer, $position)],
+                'group' => $this->createLayers(
+                    data: $layer,
+                    position: new FloatPosition(
+                        x: (float) ($layer['offsetx'] ?? 0.0),
+                        y: (float) ($layer['offsety'] ?? 0.0),
+                    ),
+                ),
+                default => [],
+            };
+
+
+            $result = [...$result, ...$instances];
+        }
+
+        return $result;
+    }
+
+    private function createObjectLayers(array $layer, PositionInterface $position): ObjectsLayer
+    {
+        return new ObjectsLayer(
+            objects: $this->createObjects($layer['objects'] ?? []),
+            position: $this->createFloatPosition($layer)
+                ->add($position),
+        );
+    }
+
+    private function createObjects(array $objects): array
+    {
+        $result = [];
+
+        foreach ($objects as $object) {
+            $result[] = $this->createObject($object);
+        }
+
+        return $result;
     }
 
     /**
-     * @return \Traversable<array-key, Layer>
+     * @param array{
+     *     x: int|float,
+     *     y: int|float,
+     *     width: int|float,
+     *     height: int|float,
+     *     rotation: int|float,
+     *     ...
+     * } $object
      */
-    private function loadLayers(array $data): \Traversable
+    private function createObject(array $object): BoxObject
     {
-        foreach ($data['layers'] ?? [] as $layer) {
-            $result = match ($layer['type']) {
-                'tilelayer' => $this->loadTilesLayer($layer),
-                default => null,
-            };
-
-            if ($result !== null) {
-                yield $result;
-            }
+        if (isset($object['polygon'])) {
+            return $this->createPolygonObject($object);
         }
+
+        return new BoxObject(
+            size: $this->createFloatSize($object),
+            position: $this->createFloatPosition($object),
+            angle: (float) ($object['rotation'] ?? 0.0),
+        );
     }
 
-    private function loadTilesLayer(array $layer): TilesLayer
+    /**
+     * @param array{
+     *     x: int|float,
+     *     y: int|float,
+     *     width: int|float,
+     *     height: int|float,
+     *     rotation: int|float,
+     *     polygon: list<array{x: int|float, y: int|float}>,
+     *     ...
+     * } $object
+     */
+    private function createPolygonObject(array $object): BoxObject
     {
-        $size = new Size($layer['width'], $layer['height']);
-        $position = new Position($layer['x'], $layer['y']);
+        [$min, $max] = $this->computeAABB($object['polygon'] ?? []);
 
+        return new BoxObject(
+            size: $min->sub($max)
+                ->toSize(),
+            position: $this->createFloatPosition($object),
+            angle: (float) ($object['rotation'] ?? 0.0),
+        );
+    }
+
+    /**
+     * @param list<array{x: int|float, y: int|float}> $polygon
+     *
+     * @return array{PositionInterface, PositionInterface}
+     */
+    private function computeAABB(array $polygon): array
+    {
+        $maxX = $maxY = \PHP_INT_MIN;
+        $minX = $minY = \PHP_INT_MAX;
+
+        foreach ($polygon as $item) {
+            [$maxX, $maxY] = [
+                \max($maxX, $item['x']),
+                \max($maxY, $item['y']),
+            ];
+
+            [$minX, $minY] = [
+                \min($minX, $item['x']),
+                \min($minY, $item['y']),
+            ];
+        }
+
+        return [
+            new FloatPosition($minX, $minY),
+            new FloatPosition($maxX, $maxY),
+        ];
+    }
+
+    /**
+     * @param array{x: int|float, y: int|float, ...} $data
+     */
+    private function createIntPosition(array $data): IntPosition
+    {
+        return new IntPosition(
+            x: (int) ($data['x'] ?? 0),
+            y: (int) ($data['y'] ?? 0),
+        );
+    }
+
+    /**
+     * @param array{x: int|float, y: int|float, ...} $data
+     */
+    private function createFloatPosition(array $data): FloatPosition
+    {
+        return new FloatPosition(
+            x: (int) ($data['x'] ?? .0),
+            y: (int) ($data['y'] ?? .0),
+        );
+    }
+
+    /**
+     * @param array{width: int|float, height: int|float, ...} $data
+     */
+    private function createIntSize(array $data): IntSize
+    {
+        return new IntSize(
+            width: (int) ($data['width'] ?? 1),
+            height: (int) ($data['height'] ?? 1),
+        );
+    }
+
+    /**
+     * @param array{width: int|float, height: int|float, ...} $data
+     */
+    private function createFloatSize(array $data): FloatSize
+    {
+        return new FloatSize(
+            width: (float) ($data['width'] ?? 1.),
+            height: (float) ($data['height'] ?? 1.),
+        );
+    }
+
+    /**
+     * @param array{
+     *     x: int|float,
+     *     y: int|float,
+     *     width: int|float,
+     *     height: int|float,
+     *     ...
+     * } $layer
+     */
+    private function createTilesLayers(array $layer, PositionInterface $position): TilesLayer
+    {
         if (isset($layer['encoding'])) {
             throw new MapFeatureNotSupportedException('Encoded layers not supported');
         }
@@ -123,32 +257,27 @@ abstract class TiledLoader implements LoaderInterface
 
         return new TilesLayer(
             tiles: $layer['data'] ?? [],
-            size: $size,
-            position: $position,
+            size: $this->createIntSize($layer),
+            position: $this->createFloatPosition($layer)
+                ->add($position),
         );
     }
 
     /**
      * @return list<TileSet>
      */
-    private function loadTileSetsList(array $data): array
+    private function createTileSets(array $data): array
     {
-        $tileSets = $this->loadTileSets($data);
+        $result = [];
 
-        return \iterator_to_array($tileSets, false);
-    }
-
-    /**
-     * @return \Traversable<array-key, TileSet>
-     */
-    private function loadTileSets(array $data): \Traversable
-    {
         foreach ($data['tilesets'] ?? [] as $set) {
-            yield $this->loadTileSet($set);
+            $result[] = $this->createTileSet($set);
         }
+
+        return $result;
     }
 
-    private function loadTileSet(array $data): TileSet
+    private function createTileSet(array $data): TileSet
     {
         if (isset($data['source'])) {
             throw new MapFeatureNotSupportedException(\sprintf(
@@ -160,7 +289,7 @@ abstract class TiledLoader implements LoaderInterface
         return new TileSet(
             pathname: $data['image'],
             tileIdStartsAt: (int) ($data['firstgid'] ?? 1),
-            size: new Size(
+            size: new IntSize(
                 width: (int) ($data['imagewidth'] / $data['tilewidth']),
                 height: (int) ($data['imageheight'] / $data['tileheight']),
             ),

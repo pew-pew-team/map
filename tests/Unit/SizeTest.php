@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PewPew\Map\Tests\Unit;
 
-use PewPew\Map\Data\Size;
+use PewPew\Map\Data\Size\IntSize;
 use PHPUnit\Framework\Attributes\Group;
 
 #[Group('pew-pew/map')]
@@ -12,7 +12,7 @@ final class SizeTest extends TestCase
 {
     public function testContains(): void
     {
-        $size = new Size(2, 2);
+        $size = new IntSize(2, 2);
 
         self::assertFalse($size->containsId(-1));
 
@@ -26,7 +26,7 @@ final class SizeTest extends TestCase
 
     public function testX(): void
     {
-        $size = new Size(3, 2);
+        $size = new IntSize(3, 2);
 
         self::assertSame(0, $size->getX(0));
         self::assertSame(1, $size->getX(1));
@@ -39,7 +39,7 @@ final class SizeTest extends TestCase
 
     public function testY(): void
     {
-        $size = new Size(3, 2);
+        $size = new IntSize(3, 2);
 
         self::assertSame(0, $size->getY(0));
         self::assertSame(0, $size->getY(1));

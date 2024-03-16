@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace PewPew\Map\Tests\Unit;
 
-use PewPew\Map\Data\Size;
+use PewPew\Map\Data\Size\IntSize;
 use PewPew\Map\Data\TileSet;
 use PHPUnit\Framework\Attributes\Group;
 
@@ -13,7 +13,7 @@ final class TileSetTest extends TestCase
 {
     public function testContains(): void
     {
-        $set = new TileSet('', $offset = 0xDEAD_BEEF, new Size(
+        $set = new TileSet('', $offset = 0xDEAD_BEEF, new IntSize(
             width: 2,
             height: 2,
         ));
@@ -30,7 +30,7 @@ final class TileSetTest extends TestCase
 
     public function testX(): void
     {
-        $set = new TileSet('', $offset = 0xDEAD_BEEF, new Size(
+        $set = new TileSet('', $offset = 0xDEAD_BEEF, new IntSize(
             width: 3,
             height: 2,
         ));
@@ -46,7 +46,7 @@ final class TileSetTest extends TestCase
 
     public function testY(): void
     {
-        $set = new TileSet('', $offset = 0xDEAD_BEEF, new Size(
+        $set = new TileSet('', $offset = 0xDEAD_BEEF, new IntSize(
             width: 3,
             height: 2,
         ));

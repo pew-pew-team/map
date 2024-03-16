@@ -43,7 +43,7 @@ The size object is responsible for the physical two-dimensional dimensions
 of arbitrary objects.
 
 ```php
-$size = new \PewPew\Map\Data\Size(
+$size = new \PewPew\Map\Data\Size\IntSize(
     width: 100, // optional, default = 1
     height: 50, // optional, default = 1
 );
@@ -54,7 +54,7 @@ $size = new \PewPew\Map\Data\Size(
 Get the total area of an object provided by size.
 
 ```php
-$size = new \PewPew\Map\Data\Size(100, 50);
+$size = new \PewPew\Map\Data\Size\IntSize(100, 50);
 
 echo $size->getArea(); // 5000
 ```
@@ -78,7 +78,7 @@ Any coordinates can be represented as a scalar ID. To obtain a position by this
 ID, you can use the following methods.
 
 ```php
-$size = new \PewPew\Map\Data\Size(3, 3);
+$size = new \PewPew\Map\Data\Size\IntSize(3, 3);
 
 echo $size->getX(id: 1); // X = 1
 echo $size->getY(id: 1); // Y = 0
@@ -93,7 +93,7 @@ A position is a primitive object that provides coordinates within an object.
 The object does not provide any additional methods.
 
 ```php
-$position = new \PewPew\Map\Data\Position(
+$position = new \PewPew\Map\Data\Position\IntPosition(
     x: 1, // optional, default = 0
     y: 0, // optional, default = 0
 );
@@ -109,12 +109,12 @@ Each layer contains a position within the map and its own size.
 ```php
 $layer = new \PewPew\Map\Data\Layer(
     // optional, default = { width: 1, height: 1 }
-    size: new \PewPew\Map\Data\Size(
+    size: new \PewPew\Map\Data\Size\IntSize(
         width: 3,
         height: 3,
     ),
     // optional, default = { x: 0, y: 0 }
-    position: new \PewPew\Map\Data\Position(
+    position: new \PewPew\Map\Data\Position\IntPosition(
         x: 0, 
         y: 0,
     ),
@@ -138,13 +138,13 @@ be obtained using the `Size::getArea()` method.
 > If any tile ID is missing, then it corresponds to 0, that means no tile.
 
 ```php
-$layer = new \PewPew\Map\Data\TilesLayer(
+$layer = new \PewPew\Map\Data\Layer\TilesLayer(
     tiles: [
         0, 2, 1,
         1, 2, 1,
         0, 0, 1,
     ],
-    size: new \PewPew\Map\Data\Size(3, 3),
+    size: new \PewPew\Map\Data\Size\IntSize(3, 3),
 );
 ```
 
@@ -160,7 +160,7 @@ $tileSet = new \PewPew\Map\Data\TileSet(
     // optional, default = 1
     tileIdStartsAt: 1,
     // optional, default = { width: 1, height: 1 }
-    size: new \PewPew\Map\Data\Size(
+    size: new \PewPew\Map\Data\Size\IntSize(
         width: 3,
         height: 3,
     ),
@@ -183,7 +183,7 @@ the `containsId()` method.
 $set = new \PewPew\Map\Data\TileSet(
     pathname: ...,
     tileIdStartsAt: 1,
-    size: new \PewPew\Map\Data\Size(1, 1),
+    size: new \PewPew\Map\Data\Size\IntSize(1, 1),
 );
 
 $set->containsId(tileId: 0); // bool(false)
@@ -222,9 +222,9 @@ echo $new->pathname; // string(".../tiles-2.png")
 Example map
 
 ```php
-use PewPew\Map\Data\Size;
+use PewPew\Map\Data\Layer\TilesLayer;
+use PewPew\Map\Data\Size\IntSize;
 use PewPew\Map\Data\TileSet;
-use PewPew\Map\Data\TilesLayer;
 use PewPew\Map\Map;
 
 $map = new Map(
@@ -235,16 +235,16 @@ $map = new Map(
                 0, 1, 1,
                 1, 2, 1,
             ],
-            size: new Size(3, 3),
+            size: new IntSize(3, 3),
         ),
     ],
     tileSets: [
         new TileSet(
             pathname: __DIR__ . '/tiles.png',
-            size: new Size(2, 2),
+            size: new IntSize(2, 2),
         ),
     ],
-    size: new Size(3, 3),
+    size: new IntSize(3, 3),
 );
 
 echo \json_encode($map);

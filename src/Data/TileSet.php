@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace PewPew\Map\Data;
 
+use PewPew\Map\Data\Position\IntPosition;
+use PewPew\Map\Data\Size\IntSize;
+
 final readonly class TileSet implements \Stringable
 {
     /**
@@ -15,7 +18,7 @@ final readonly class TileSet implements \Stringable
     public function __construct(
         public string $pathname,
         public int $tileIdStartsAt = 1,
-        public Size $size = new Size(),
+        public IntSize $size = new IntSize(),
     ) {}
 
     /**
@@ -53,9 +56,9 @@ final readonly class TileSet implements \Stringable
      * @api
      * @param int<1, max> $tileId
      */
-    public function getPosition(int $tileId): Position
+    public function getPosition(int $tileId): IntPosition
     {
-        return new Position(
+        return new IntPosition(
             x: $this->getX($tileId),
             y: $this->getY($tileId),
         );
@@ -79,7 +82,7 @@ final readonly class TileSet implements \Stringable
     {
         /** @var non-empty-string */
         return \vsprintf(<<<'TEMPLATE'
-            object<TileSet = %s> {
+            TileSet(%s) {
                 id: %d,
                 size: %s,
             }
